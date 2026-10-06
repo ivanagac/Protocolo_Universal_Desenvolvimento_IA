@@ -8,7 +8,8 @@ do seu projeto — aquele que o agente lê a cada sessão.*
 ## Como usar
 
 - **Responda antes de começar.** Leva de 30 a 60 minutos. **Não pule A e B**: são as que
-  fazem as outras funcionarem.
+  fazem as outras funcionarem. **Se quem homologa não é quem constrói — ou se quem constrói
+  não lê código —, K também não se pula.**
 - **As respostas viram o documento de regras do projeto**, nesta ordem: a Constituição no
   topo *(`system_prompt_recomendado.md` ou `system_prompt_completa.md`)*, as respostas
   deste questionário embaixo, o documento do modo ativo depois.
@@ -45,8 +46,8 @@ agir.
 **A2. Quais operações exigem confirmação explícita antes, sempre?** A lista-base para
 adaptar: alteração de schema ou migration; exclusão ou reescrita integral de arquivo não
 lido por completo; inclusão de dependência nova; mudança em contrato consumido por
-terceiros; qualquer operação sobre ambiente ou dado real. *O que mais, no seu domínio, é
-caro ou irreversível?* (Envio de mensagem a cliente, cobrança, publicação, alteração de
+terceiros; qualquer operação sobre ambiente ou dado real; **alteração ou remoção de teste
+existente** *(P4)*. *O que mais, no seu domínio, é caro ou irreversível?* (Envio de mensagem a cliente, cobrança, publicação, alteração de
 índice de busca, invalidação de cache global, provisionamento de infra.)
 
 > **Resposta** *(uma operação por linha)*:
@@ -230,6 +231,19 @@ decidido.*
 
 > **Resposta:**
 >
+
+**D7. Quem autoriza a alteração de um teste existente, e onde a justificativa fica?** Mudar
+valor esperado, afrouxar ou remover asserção, pular, alargar tolerância, regenerar *snapshot*
+— tudo é alteração de teste. *(Recomendado: entra na lista A2; a justificativa vai na seção de
+testes alterados do documento de homologação, com a diferença exibida.)* E: **de onde vem o
+valor esperado de um teste novo neste projeto** — especificação, decisão registrada,
+comportamento combinado — e quem decide quando não existe nenhum dos três?
+
+> **Resposta:**
+>
+> | Quem autoriza alterar teste | Onde fica a justificativa | De onde vem o valor esperado | Quem decide sem especificação |
+> |---|---|---|---|
+> | | | | |
 
 ---
 
@@ -550,6 +564,84 @@ artefatos completos — é mais leve e suficiente.
 
 ---
 
+## K — Homologação *(P11)*
+
+*Se quem constrói é quem homologa, e lê código, escreva isso em K1 e responda K2 mesmo
+assim: aprovação sem registro é relatório. Se quem constrói não lê código, esta seção é a
+que faz a entrega chegar a quem aprova com evidência, e não com a palavra de quem construiu.*
+
+**K1. Quem homologa neste projeto — e é a mesma pessoa que autoriza (A1)?** Se não: quem
+homologa lê código? A resposta define para quem o documento de homologação é escrito, e em
+que linguagem.
+
+> **Resposta:**
+>
+> | Quem homologa | É quem autoriza? | Lê código? |
+> |---|---|---|
+> | | | |
+
+**K2. Onde fica o documento de homologação, e como se chama?** Um arquivo por entrega,
+numerado, em pasta própria e versionado com o código é o desenho mais simples de cobrar.
+
+> **Resposta:**
+>
+
+**K3. O que quem homologa exige ver em toda entrega?** A lista-base: a saída de cada teste,
+colada; a saída contra o código de antes; os testes alterados, com a diferença e o motivo; o
+passo a passo para ver funcionando; as execuções delegadas, com comando e reversão. *O que
+mais, no seu domínio?* (Captura de tela, dado de exemplo, medição de custo, a saída de um
+comando específico.)
+
+> **Resposta** *(um item por linha)*:
+>
+> - saída de cada teste, colada
+> - saída contra o código de antes
+> - testes alterados, com a diferença e o motivo
+> - passo a passo para ver funcionando
+> - execuções delegadas, com comando e reversão
+> -
+
+**K4. O que quem constrói sabe e não sabe executar?** Terminal, container, variável de
+ambiente, instalação de dependência, banco, publicação. **O que ela não sabe fazer é a lista
+do que o agente oferece fazer por ela; o que ela não consegue avaliar é a lista do que sobe
+para quem homologa antes de executar.**
+
+> **Resposta:**
+>
+> | Etapa | Quem constrói sabe fazer? | O agente faz por ela, depois do "sim"? | Sobe para quem homologa? |
+> |---|---|---|---|
+> | terminal | | | |
+> | container | | | |
+> | variável de ambiente | | | |
+> | instalação de dependência | | | |
+> | banco | | | |
+> | publicação | | | |
+
+**K5. Quais operações nunca são delegadas com um "sim" de quem constrói?** Publicar em
+produção, apagar dado real, pagar, trocar segredo de produção. É a lista A2 vista por quem
+homologa: o que a pessoa que constrói não aprova sozinha.
+
+> **Resposta** *(uma operação por linha)*:
+>
+> -
+> -
+
+**K6. O que recusa uma entrega?** O critério, escrito antes da primeira: teste alterado sem
+justificativa; teste sem saída contra o velho; execução delegada sem registro; documento
+escrito no fim, de memória; veredicto preenchido pelo agente. **Sem o critério escrito, a
+recusa parece arbitrária e a aprovação parece automática.**
+
+> **Resposta** *(um critério por linha)*:
+>
+> - teste alterado sem justificativa na seção própria
+> - teste sem saída contra o código de antes
+> - execução delegada sem comando, saída e reversão escritos
+> - documento de homologação escrito no fim
+> - veredicto preenchido pelo agente
+> -
+
+---
+
 ## O que fazer com as respostas
 
 1. **Monte o documento de regras do projeto:** a Constituição no topo, estas respostas
@@ -559,7 +651,9 @@ artefatos completos — é mais leve e suficiente.
    sete, a regra "nada é editado sem que o alvo tenha sido nomeado" já muda o comportamento
    do agente na primeira sessão.
 3. **Diga ao agente qual modo está ativo.** Sem essa palavra, vale construção.
-4. **Revise quando uma resposta mudar de fato** — não por rotina. Toda revisão atualiza o
+4. **Se quem homologa não é quem constrói, K1 e K2 entram no mínimo.** Sem eles, a entrega
+   chega a quem aprova com a palavra de quem construiu — e a suíte verde vira a única prova.
+5. **Revise quando uma resposta mudar de fato** — não por rotina. Toda revisão atualiza o
    cabeçalho, e uma resposta que muda porque uma decisão foi tomada aponta para o ADR que a
    tomou.
 
