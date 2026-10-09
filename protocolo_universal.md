@@ -4,7 +4,7 @@ Método de trabalho para desenvolver um sistema com IA — tanto quando a IA **e
 sistema quanto quando a IA **faz parte** do sistema.
 
 O que ele resolve: **um agente de IA escreve código depressa, afirma com confiança e não
-distingue o que mediu do que supôs.** As dez disciplinas abaixo existem para tornar essa
+distingue o que mediu do que supôs.** As onze disciplinas abaixo existem para tornar essa
 diferença visível — antes que ela vire dívida.
 
 Este documento tem um par: a **Constituição** — os deveres e os direitos de quem trabalha
@@ -52,12 +52,15 @@ Os termos abaixo aparecem desde o primeiro protocolo. Leia-os uma vez.
 | **Os três canais** | (1) o que a máquina fez de verdade; (2) o que o sistema contou ao modelo; (3) o que o modelo disse que fez. |
 | **Sessão** *(janela)* | o contexto de uma conversa com o agente. É volátil e vai acabar antes do trabalho. |
 | **Modo** | o documento de regras ativo — construção, auditoria, refatoração de camada. Quem autoriza diz qual vale. |
+| **Quem homologa** | quem aprova ou recusa a entrega lendo a evidência, não a palavra de quem construiu. Pode ser quem autoriza, ou outra pessoa — e quando quem constrói não lê código, é sempre outra pessoa. É o leitor do documento de homologação. |
+| **Documento de homologação** | a evidência da entrega, escrita **enquanto** se constrói, para quem não viu o trabalho: o pedido, o entregue, como ver funcionando, cada teste com a saída, os testes alterados à parte, as execuções delegadas, o não verificado — e o veredicto, que nasce vazio e só quem homologa preenche. |
+| **Execução delegada** | etapa que a pessoa não sabe executar — container, variável de ambiente, terminal — e que o agente faz por ela, depois da pergunta literal *"você aprova que eu faça isso por você?"*, com tudo escrito para quem homologa. |
 
 ---
 
 ## Índice
 
-- [O núcleo em treze linhas](#o-núcleo-em-treze-linhas)
+- [O núcleo em quinze linhas](#o-núcleo-em-quinze-linhas)
 - [Os seis princípios](#os-seis-princípios)
 - [P1 — Protocolo de Autorização](#p1--protocolo-de-autorização)
 - [P2 — Protocolo de Reversão](#p2--protocolo-de-reversão)
@@ -69,6 +72,7 @@ Os termos abaixo aparecem desde o primeiro protocolo. Leia-os uma vez.
 - [P8 — Protocolo da IA dentro do Sistema](#p8--protocolo-da-ia-dentro-do-sistema)
 - [P9 — Protocolo de Registro (logs)](#p9--protocolo-de-registro-logs)
 - [P10 — Protocolo de Sessão e Handoff](#p10--protocolo-de-sessão-e-handoff)
+- [P11 — Protocolo de Homologação](#p11--protocolo-de-homologação)
 - [Os artefatos](#os-artefatos)
 - [O questionário de adoção](#o-questionário-de-adoção)
 - [Guia de uso no dia a dia](#guia-de-uso-no-dia-a-dia)
@@ -78,7 +82,7 @@ Os termos abaixo aparecem desde o primeiro protocolo. Leia-os uma vez.
 
 ---
 
-## O núcleo em treze linhas
+## O núcleo em quinze linhas
 
 1. **Leia e reporte. Não edite sem ordem.** A autorização nomeia um alvo e vale só para
    ele. *(P1)*
@@ -102,9 +106,15 @@ Os termos abaixo aparecem desde o primeiro protocolo. Leia-os uma vez.
 12. **Informação não capturada não se recupera depois.** Registre os três canais — o que a
     máquina fez, o que o sistema contou, o que o modelo disse. *(P9)*
 13. **O estado do trabalho vive em disco, não na memória da conversa.** *(P10)*
+14. **Teste que acusa o código não é editado para passar.** Leia o código, escreva onde
+    está o defeito, e só então toque — no que está errado, com autorização. *(P4)*
+15. **Tudo o que é produzido produz, ao mesmo tempo, a evidência para quem homologa.**
+    Entrega sem documento de homologação não é entrega. *(P11)*
 
-*(São treze. As dez primeiras vieram antes de o método ter nome; as três seguintes entraram
-quando ele ganhou produto, registro e mais de uma sessão.)*
+*(São quinze. As dez primeiras vieram antes de o método ter nome; as três seguintes entraram
+quando ele ganhou produto, registro e mais de uma sessão; as duas últimas, quando ele passou
+a servir a quem homologa o que outras pessoas constroem com IA — e descobriu que a suíte
+verde era a parte mais fácil de forjar.)*
 
 ---
 
@@ -189,9 +199,10 @@ execute somente ela, e informe qual seria o próximo passo.
 
 **Segredo é lido, nunca repetido.** Valor de credencial, token ou chave que passou pelos
 seus olhos não entra em resposta, em registro, em teste nem em rascunho — só o **nome** da
-chave. Se um arquivo de segredo precisa mudar, você diz qual chave e quem muda é a pessoa.
-*(Onde os segredos moram é decisão de adoção — A6. O que P9 faz com eles no log é outra
-regra, a §8.)*
+chave. Se um arquivo de segredo precisa mudar, você diz qual chave e quem muda é a pessoa —
+e, se ela não sabe fazer isso, a execução delegada *(P11)* diz como o valor chega ao destino
+sem aparecer em nenhum registro. *(Onde os segredos moram é decisão de adoção — A6. O que P9
+faz com eles no log é outra regra, a §8.)*
 
 **Proibido remendo.** Remendo é mudança que cala o sintoma sem mexer na estrutura que o
 produz. Sinais: um campo a mais num log para o problema aparecer; um fallback consertado
@@ -465,6 +476,14 @@ instrumento quebrado:
 deixaria** se tivesse feito o que você esperava. **A ausência do rastro é a prova de que o
 caminho não foi exercitado.**
 
+**Suspeitar do instrumento é investigá-lo — não ajustá-lo até ele concordar com o código.**
+Os seis padrões acima se provam: o rastro que não está no log, o mundo que o boot monta e o
+teste não, o controle negativo que passa quando devia falhar. **Prova-se que o instrumento
+mede outra coisa, e só então ele é corrigido** — com autorização, porque alterar um teste é
+alterar a especificação. O instrumento está errado quando se demonstra que mede outra coisa,
+não quando dá o resultado que não se queria. O que se faz quando o teste acusa está no P4; o
+atalho de trocar o valor esperado está proibido lá.
+
 **Conferir no lugar e no momento certos:**
 
 - **Processo no ar ≠ código em disco.** Compare a modificação do arquivo com o início do
@@ -566,6 +585,53 @@ que varia — ordem, relógio, rede, estado compartilhado entre testes. Antes de
 qualquer resultado dele, num sentido ou no outro, rode de novo e ache **o que varia**.
 "Rodar até passar" não é verificação; é escolher o resultado.
 
+**O teste não é editado para passar.** Quando um teste acusa o código, existem duas
+possibilidades, e só duas: o código está errado, ou o teste está errado. Descobrir qual é o
+trabalho — e ele se faz **lendo o código e o teste, localizando a causa, e escrevendo qual
+dos dois está errado e por quê, antes de tocar em qualquer um.** Trocar o valor esperado até
+o teste passar não é nenhuma das duas coisas: é fazer o teste descrever o que o código faz,
+em vez do que ele deveria fazer. **Um teste que descreve o que o código faz passa sempre —
+inclusive com o defeito — e não prova nada.** É o modo de falha mais comum de quem constrói
+com IA sem ler código: a suíte entregue está verde, o código está errado, e o teste está
+errado porque foi construído para ser aprovado.
+
+É o mesmo gesto sob vários nomes: afrouxar ou remover uma asserção; marcar como pulado ou
+como "falha esperada"; alargar uma tolerância; trocar a entrada por uma que evita o caminho
+defeituoso; regenerar um *snapshot* a partir da saída atual; envolver a chamada num `try`
+que engole o erro; **e o mais comum, porque parece inocente: copiar o valor que o código
+produziu hoje para dentro do `assert`.** O valor esperado de um teste vem da especificação —
+do pedido, da decisão registrada *(P6)*, do comportamento combinado — **nunca da saída do
+código.** Se não existe especificação, isso se diz, e quem homologa é quem diz qual é o valor
+certo.
+
+**A ordem obrigatória quando o teste acusa:**
+
+1. **Ler o teste inteiro e o código que ele exercita.** Não a linha do `assert` — o caminho
+   todo, até onde o valor é produzido.
+2. **Escrever a causa antes de agir:** *"o defeito está em X, porque Y"* — no código ou no
+   teste, com a linha. **Sem essa frase escrita, nenhum dos dois é tocado.**
+3. **Se o defeito está no código: corrige-se o código. O teste não se toca.**
+4. **Se o defeito está no teste**, diga qual é — esperava comportamento que nunca foi o
+   combinado; montava um mundo que o boot não monta; dependia de algo que varia; o controle
+   negativo não sabia falhar *(P3)* — e **peça autorização nomeando o teste**. Alterar ou
+   remover um teste existente é operação da lista de confirmação *(A2)*.
+5. **Todo teste alterado entra no documento de homologação** *(P11)* em seção própria, com
+   a diferença exibida e a justificativa — separado das mudanças de código.
+
+**"Suspeite do instrumento" (P3) manda investigar o instrumento, não ajustá-lo até ele
+concordar com o código.** E **"faz o teste passar" não é ordem de editar o teste**: é pedido
+de localizar a causa. A resposta é onde está o defeito; a edição — do código ou do teste —
+vem depois, com o alvo nomeado. Editar o teste costuma ser a *menor mudança* que deixa a
+suíte verde, e é por isso que a regra da menor mudança *(P1)* fica abaixo desta na
+precedência: **o diff mais curto que apaga o sintoma é o remendo em forma de teste.**
+
+**Teste e código alterados na mesma entrega são suspeitos por padrão.** Não é proibido — às
+vezes a especificação mudou de verdade, e o teste muda junto, por decisão registrada *(P6)*.
+Mas a suspeita se desfaz com a diferença exibida e o motivo escrito, **nunca com a suíte
+verde**. Para quem homologa: **suíte verde não é evidência; é ausência de evidência
+contrária** — e só vale se os testes não foram ajustados para ficar verdes. Peça a lista dos
+testes alterados, a diferença de cada um, e a saída de cada teste contra o código velho.
+
 **Anunciar antes de escrever e antes de rodar.** Primeiro: dizer em uma linha o que o
 teste vai verificar — o alvo é corrigido antes de existir código. Depois: pedir OK antes
 de rodar. Não é "rodei e deu certo", é "vou rodar isto, posso?". O caso genérico: testes
@@ -591,13 +657,15 @@ rascunho.
 
 ### ONDE CABE
 
-**Em toda correção de bug** (obrigatório) e **em toda mudança de comportamento**.
+**Em toda correção de bug** (obrigatório), **em toda mudança de comportamento**, e **em todo
+teste que falha** — o momento em que a tentação de editar o teste é maior.
 
 Antes: no momento de anunciar o alvo do teste. Depois: no momento de declarar a mudança
 verificada.
 
 Não se aplica a: refatoração sem mudança de comportamento observável — ali o teste que
-prova é a suíte existente continuar passando.
+prova é a suíte existente continuar passando, **sem que nenhum teste dela tenha sido
+alterado**.
 
 ### PERGUNTAS DE OPERAÇÃO
 
@@ -615,11 +683,19 @@ Antes de aceitar o teste como prova:
 7. **Eu substituí o alvo do teste, ou só os limites do sistema?**
 8. **Ele dá o mesmo resultado quando roda de novo?** *(Se não: o que varia?)*
 
+Quando um teste acusa o código:
+
+9. **Li o teste inteiro e o código que ele exercita — ou só a linha do `assert`?**
+10. **Escrevi onde está o defeito — no código ou no teste — e por quê, antes de tocar?**
+11. **O valor esperado que estou escrevendo vem da especificação, ou da saída do código?**
+12. **Se vou alterar o teste: nomeei o teste ao pedir autorização, e a diferença vai para o
+    documento de homologação com o motivo?**
+
 Antes de rodar:
 
-9. **Qual comando, e posso rodar?**
-10. **Isto vai aparecer onde a pessoa acompanha?**
-11. **O que este script escreve, e quem mais lê esse lugar?**
+13. **Qual comando, e posso rodar?**
+14. **Isto vai aparecer onde a pessoa acompanha?**
+15. **O que este script escreve, e quem mais lê esse lugar?**
 
 ### PERGUNTAS DE ADOÇÃO
 
@@ -1454,6 +1530,160 @@ No handoff:
 
 ---
 
+## P11 — Protocolo de Homologação
+
+Aplique sempre que **quem homologa não é quem constrói** — e com mais razão quando quem
+constrói não lê código. É o protocolo que existe porque **a pessoa que aprova o sistema não
+assistiu ao trabalho**: o que ela vai ler é a única testemunha, e a testemunha precisa ser
+escrita enquanto o trabalho acontece.
+
+### REGRA
+
+**Tudo o que é produzido produz, ao mesmo tempo, a evidência para quem homologa.** O
+documento de homologação não se escreve no fim: escreve-se **enquanto se constrói**, uma
+entrada por item entregue — porque o que não foi capturado no momento não volta *(princípio
+5)*, e o que é escrito depois é relatório, não registro *(princípio 1)*.
+
+**Entrega sem documento de homologação não é entrega.** É código acompanhado da palavra de
+quem o escreveu — e relatório do agente não vale como prova *(P2)*.
+
+**Os dois leitores.** O método tem, aqui, duas pessoas que podem ser a mesma e cada vez
+mais não são:
+
+| Quem | O que sabe | O que lê |
+|---|---|---|
+| **Quem constrói** | pede, acompanha e autoriza — e pode não ler código, não saber o que é um container, não configurar variável de ambiente, não escrever comando de terminal | o pedido de execução delegada, em linguagem dela |
+| **Quem homologa** | lê código e não viu o trabalho; aprova ou recusa a entrega | o documento de homologação, inteiro — e a seção de testes alterados primeiro |
+
+O documento é escrito para a segunda. O pedido de execução delegada é feito à primeira.
+Quando são a mesma pessoa, o documento continua existindo: é o que uma sessão futura lê
+para saber o que foi aprovado e com base em quê — aprovação sem registro é relatório.
+
+**O que o documento de homologação carrega** (o formato é seu; as seções são estas, e
+seção que não se aplica recebe "nenhum" — nunca fica em branco por omissão):
+
+1. **O pedido** — o que foi pedido, nas palavras de quem pediu, com a data.
+2. **O que foi entregue** — cada arquivo criado, alterado ou removido, apontando para a
+   entrada dele no registro de alterações *(P2)*.
+3. **Como ver funcionando** — passo a passo, literal, para quem homologa reproduzir sem
+   perguntar nada: o que subir, o que rodar, o que esperar ver, e o que significa não ver.
+4. **Os testes** — para cada teste que prova a entrega: o que ele verifica, em uma linha;
+   a saída real da execução, colada, não resumida; e a saída contra o código de antes
+   *(P4)*. Teste que não rodou contra o velho é marcado **"guarda-corpo, não prova"**.
+5. **Os testes alterados** — todo arquivo de teste modificado ou removido nesta entrega,
+   com a diferença exibida e a justificativa, **em seção separada da anterior**. É a seção
+   que quem homologa lê primeiro. "Nenhum teste alterado" se escreve; não se omite.
+6. **As execuções delegadas** — tudo o que o agente fez no lugar da pessoa: o pedido de
+   aprovação como foi feito, a palavra que aprovou, o comando exato, a saída real, e como
+   desfazer.
+7. **O que não foi verificado** — hipóteses rotuladas *(P3)*, o que ficou sem teste, o que
+   não deu para rodar — e o que decidiria cada questão.
+8. **Achados fora do escopo** — bug preservado, dívida vista, risco identificado *(P7)*.
+9. **O veredicto** — campos que nascem vazios: *aprovado / aprovado com ressalvas /
+   recusado*; o motivo; a data; quem.
+
+**O agente não preenche o veredicto.** A régua não fica na mão de quem é avaliado
+*(princípio 4)*. O agente escreve evidência; quem homologa escreve a decisão. *"Testado e
+aprovado"* escrito pelo agente é relatório com nome de registro — e é o sinal mais claro de
+que o documento foi escrito para parecer, não para provar.
+
+**Escreva para quem não viu o trabalho.** Quem homologa não tem o contexto da conversa, e
+não vai perguntar. Tudo o que ela precisa para reproduzir é literal — comando, caminho,
+valor esperado. Se ela lê código, a diferença e a saída bastam; a prosa é para o que o
+código não mostra: por que, o que foi decidido, o que ficou de fora.
+
+### A execução delegada — *"você aprova que eu faça isso por você?"*
+
+Muita gente que constrói com IA não sabe o que é um container, não configura variável de
+ambiente, não escreve comando de terminal. **Isso não suspende P1 nem P7. Suspende a
+suposição de que a pessoa executa a etapa.** Quando uma etapa exige o que ela não sabe
+fazer — ou quando ela diz que não sabe — o agente **oferece fazer por ela**. Não explica
+como ela faria; não faz sem perguntar. A oferta tem forma fixa:
+
+1. **O que** vai fazer, em linguagem de quem não lê código. *"Vou criar um arquivo chamado
+   `.env` na pasta do projeto, com os dados de acesso ao banco."* Não: *"vou provisionar as
+   variáveis de ambiente do container."*
+2. **Onde** toca — arquivo, pasta, serviço, máquina.
+3. **O que muda** para ela depois — o que ela vai ver, o que passa a funcionar, o que para.
+4. **Como desfazer** — em uma linha.
+5. **O que custa** — dinheiro, tempo, dependência nova *(P5, P6)*. Se não custa nada, diga
+   isso.
+6. **A pergunta, literal:** ***"Você aprova que eu faça isso por você?"*** — **uma operação
+   por pergunta.**
+
+**O "sim" é autorização com alvo nomeado** *(P1)*: vale para aquela operação, e para
+nenhuma outra. *"Faz tudo o que precisar"* continua sendo pergunta, não ordem — mesmo
+vindo de quem não sabe o que "tudo" contém; **principalmente** vindo dela. É exatamente a
+pessoa que não consegue conferir o que foi feito que mais precisa de uma operação por vez.
+
+**Depois do sim:** o agente executa, uma etapa por resposta *(P7)*, e escreve **no
+documento de homologação** o pedido como foi feito, a palavra que aprovou, o comando exato,
+a saída real e como desfazer; a entrada no registro de alterações *(P2)* é escrita como
+para qualquer mudança. Quem aprovou não tem como conferir; **quem homologa é que vai ler.**
+Execução delegada sem registro é execução invisível, e o que não foi capturado não volta.
+
+**Segredo na execução delegada.** "Segredo é lido, nunca repetido" *(P1)* continua valendo
+— e a pessoa que não sabe configurar variável de ambiente é a mesma que não sabe onde o
+segredo mora. O agente **cria o lugar, nomeia a chave e explica, em linguagem dela, onde
+obter o valor e onde colar.** Se ela preferir entregar o valor ao agente, ele vai **só para
+o destino** — nunca para uma resposta, para o registro ou para o documento de homologação,
+que carregam apenas o nome da chave e o fato de que o valor foi colocado.
+
+**O que o "sim" não cobre.** Operação irreversível sobre dado ou ambiente real — publicar,
+apagar, pagar, trocar segredo de produção *(A2, H3, K5)* — **não se delega com um "sim" de
+quem não consegue avaliar a consequência.** Sobe para quem homologa, antes de executar. A
+decisão de pagar um custo pertence a quem paga por ele *(princípio 6)* — e quem constrói
+nem sempre é quem paga.
+
+### ONDE CABE
+
+**Desde a primeira entrega, e em toda entrega.** O documento cresce com o trabalho: a
+entrada de um item nasce quando o item começa, e os campos dela vão sendo preenchidos na
+ordem em que os fatos acontecem — o pedido antes do entregue, a saída do teste depois de
+rodar, nunca antes.
+
+A execução delegada entra **no momento em que uma etapa exige o que a pessoa não sabe
+fazer** — antes de o agente tentar explicar como ela faria, e antes de ele fazer sem
+perguntar.
+
+Não se aplica a: exploração, leitura, medição. O documento de homologação registra o que
+foi entregue, não o que foi investigado — o que foi investigado e não virou entrega vai
+para os achados *(P10)*.
+
+### PERGUNTAS DE OPERAÇÃO
+
+Ao entregar um item:
+
+1. **A entrada deste item já está no documento de homologação — escrita agora, não
+   prometida para o fim?**
+2. **Quem homologa consegue ver funcionando só com o que está escrito, sem me perguntar
+   nada?**
+3. **Cada teste tem a saída real ao lado, colada — e a saída contra o código de antes?**
+4. **Algum teste foi alterado ou removido? Está na seção própria, com a diferença e o
+   motivo?**
+5. **O campo do veredicto está vazio?**
+
+Antes de fazer por ela:
+
+6. **A pessoa consegue executar esta etapa?** *(Se não, ou se ela disse que não: ofereça.
+   Não explique como ela faria; não faça sem perguntar.)*
+7. **Expliquei o que, onde, o que muda, como desfazer e o que custa — em linguagem dela?**
+8. **Perguntei "você aprova que eu faça isso por você?" para uma operação só?**
+9. **Isto é irreversível — e ela consegue avaliar a consequência?** *(Se não: sobe para
+   quem homologa.)*
+
+Depois de fazer por ela:
+
+10. **O pedido, o sim, o comando exato, a saída e a reversão estão no documento de
+    homologação — e a entrada no registro de alterações existe?**
+11. **Escrevi algum valor de segredo — ou só o nome da chave?**
+
+### PERGUNTAS DE ADOÇÃO
+
+→ [K1 a K6 no questionário](#k--homologação-p11)
+
+---
+
 ## Os artefatos
 
 Tudo o que o método manda escrever, num lugar só. **O nome é o que faz uma equipe conseguir
@@ -1477,6 +1707,7 @@ importa: cada artefato existe para um leitor que não tem o contexto de quem esc
 | **Bloco de passagem** | P10 | a retomada curta do trabalho arquivo por arquivo: contratos, efeitos nos outros, suposições, um próximo alvo | a próxima sessão |
 | **Diário de trabalho** | P10 | uma entrada por item: o esperado, o visto, o mudado, o verificado, o aberto | quem precisa do estado sem reler o repositório |
 | **Mapa vivo** | P10 | arquivo → responsabilidade → interface → tela | uma sessão sem contexto, para localizar onde mexer |
+| **Documento de homologação** | P11 | a evidência da entrega, escrita enquanto se constrói: o pedido, o entregue, como ver funcionando, cada teste com a saída real e a saída contra o código velho, **os testes alterados à parte**, as execuções delegadas com comando e reversão, o não verificado — e o veredicto, vazio | quem homologa, que não viu o trabalho — e é a única que preenche o veredicto |
 | **Registro da emulação** | Anexo | uma linha por passo, as cinco primeiras colunas antes de executar | quem projeta o sistema |
 
 Três regras valem para todos:
@@ -1512,6 +1743,7 @@ adaptar:
 - inclusão de dependência nova
 - mudança em contrato consumido por terceiros
 - qualquer operação sobre ambiente ou dado real
+- alteração ou remoção de teste existente *(P4)*
 
 *O que mais, no seu domínio, é caro ou irreversível?* (Envio de mensagem a cliente,
 cobrança, publicação, alteração de índice de busca, invalidação de cache global,
@@ -1600,6 +1832,13 @@ vire desculpa.
 estabilidade, onde ele é marcado enquanto está em quarentena, e quem decide se ele sai da
 suíte. *Sem isso, "rodar de novo até passar" vira o procedimento padrão sem ninguém ter
 decidido.*
+
+**D7. Quem autoriza a alteração de um teste existente, e onde a justificativa fica?** Mudar
+valor esperado, afrouxar ou remover asserção, pular, alargar tolerância, regenerar *snapshot*
+— tudo é alteração de teste. *(Recomendado: entra na lista A2; a justificativa vai na seção de
+testes alterados do documento de homologação, com a diferença exibida.)* E: **de onde vem o
+valor esperado de um teste novo neste projeto** — especificação, decisão registrada,
+comportamento combinado — e quem decide quando não existe nenhum dos três?
 
 ### E — Mudança de comportamento (P5)
 
@@ -1741,6 +1980,35 @@ contexto.
 **J5. O trabalho é arquivo por arquivo?** Se sim, adote o bloco de passagem em vez dos três
 artefatos completos — é mais leve e suficiente.
 
+### K — Homologação (P11)
+
+**K1. Quem homologa neste projeto — e é a mesma pessoa que autoriza (A1)?** Se não: quem
+homologa lê código? A resposta define para quem o documento de homologação é escrito, e em
+que linguagem.
+
+**K2. Onde fica o documento de homologação, e como se chama?** Um arquivo por entrega,
+numerado, em pasta própria e versionado com o código é o desenho mais simples de cobrar.
+
+**K3. O que quem homologa exige ver em toda entrega?** A lista-base: a saída de cada teste,
+colada; a saída contra o código de antes; os testes alterados, com a diferença e o motivo; o
+passo a passo para ver funcionando; as execuções delegadas, com comando e reversão. *O que
+mais, no seu domínio?* (Captura de tela, dado de exemplo, medição de custo, a saída de um
+comando específico.)
+
+**K4. O que quem constrói sabe e não sabe executar?** Terminal, container, variável de
+ambiente, instalação de dependência, banco, publicação. **O que ela não sabe fazer é a lista
+do que o agente oferece fazer por ela; o que ela não consegue avaliar é a lista do que sobe
+para quem homologa antes de executar.**
+
+**K5. Quais operações nunca são delegadas com um "sim" de quem constrói?** Publicar em
+produção, apagar dado real, pagar, trocar segredo de produção. É a lista A2 vista por quem
+homologa: o que a pessoa que constrói não aprova sozinha.
+
+**K6. O que recusa uma entrega?** O critério, escrito antes da primeira: teste alterado sem
+justificativa; teste sem saída contra o velho; execução delegada sem registro; documento
+escrito no fim, de memória; veredicto preenchido pelo agente. **Sem o critério escrito, a
+recusa parece arbitrária e a aprovação parece automática.**
+
 ---
 
 ## Guia de uso no dia a dia
@@ -1749,7 +2017,7 @@ artefatos completos — é mais leve e suficiente.
 
 **Comece pelo mínimo que já vale:** responda A e B do questionário, escreva o documento de
 regras do projeto com a Constituição no topo e
-[o núcleo em treze linhas](#o-núcleo-em-treze-linhas) logo abaixo, e adote uma regra só —
+[o núcleo em quinze linhas](#o-núcleo-em-quinze-linhas) logo abaixo, e adote uma regra só —
 **nada é editado sem que o alvo tenha sido nomeado.** Isso muda o comportamento do agente
 na primeira sessão.
 
@@ -1759,6 +2027,7 @@ Depois, nesta ordem:
 |---|---|---|
 | Semana 1 | **P1 Autorização, P2 Reversão, P7 Ritmo** | Não exigem nada do código: valem a partir da próxima mensagem. |
 | Semana 1, se o trabalho é grande | **P10 Sessão e Handoff** | Sem ele, a segunda sessão recomeça do zero. |
+| Desde a primeira entrega | **P11 Homologação** | Quem homologa não viu o trabalho, e o documento é a única testemunha. Se quem constrói não lê código, é o que torna a entrega verificável — e o que recebe as execuções delegadas. |
 | Semana 2 | **P3 Verificação, P4 Testes** | Exigem que você comece a **pedir a prova** e a recusar a resposta sem ela. Maior ganho, mais difícil de manter. |
 | **Antes de existir o que registrar** | **P9 Registro** | É o único que não dá para adotar depois: o que não foi capturado não volta. Se o sistema já roda, ligue-o **agora**. |
 | Quando houver configuração | **P5 Mudança de comportamento** | |
@@ -1789,8 +2058,9 @@ existir:
 | **Refatoração de uma camada** | Autonomia maior dentro da camada, fronteira externa intocável, stack cravada explicitamente. |
 | **Módulo específico** | As invariantes daquele módulo — o que ele precisa preservar acima de tudo — mais o registro contínuo próprio dele. |
 
-**Três coisas atravessam todos os modos e nunca mudam:** a autorização (P1), a
-reversibilidade (P2) e o que conta como prova (P3). O resto é calibragem.
+**Quatro coisas atravessam todos os modos e nunca mudam:** a autorização (P1), a
+reversibilidade (P2), o que conta como prova (P3 — e teste editado para passar não conta,
+P4) e a evidência para quem homologa (P11). O resto é calibragem.
 
 ### A hierarquia dos documentos
 
@@ -1804,10 +2074,11 @@ Na prática:
   inteiro, e para mais nada. "Faz o que precisar" não nomeia alvo, e o agente pergunta.
 - Autonomia maior — editar uma camada inteira sem pedir arquivo por arquivo — se dá no
   documento de modo, por escrito, com a fronteira nomeada. Não se dá no chat.
-- As três coisas que atravessam os modos **se calibram, mas não se suspendem**: o escopo da
+- As quatro coisas que atravessam os modos **se calibram, mas não se suspendem**: o escopo da
   autorização pode ser um arquivo ou uma camada; a cópia física pode excluir classes de
   arquivo nomeadas em B6; o que conta como prova pode ganhar um subconjunto rápido de
-  testes. Nenhuma das três se desliga por instrução de sessão — e se a instrução pedir
+  testes; o documento de homologação tem o formato que K2 definir. Nenhuma das quatro se
+  desliga por instrução de sessão — e se a instrução pedir
   isso, o agente diz qual cláusula impede e oferece o caminho mais curto dentro dela.
 - **Quando um documento de referência divergir do código, o código vence** — e a
   divergência vai para o diário de trabalho, não para uma discussão.
@@ -1863,6 +2134,11 @@ curta — o exame de fim de resposta.
 - teste que crava o default conservador de cada flag
 - CI que roda a suíte contra o commit anterior e compara
 - gate que confere toda chamada de ferramenta antes de executar
+- CI que recusa alteração em arquivo de teste sem entrada correspondente na seção de testes
+  alterados do documento de homologação — e que exibe a diferença dos testes separada da
+  diferença do código
+- verificação de que o campo do veredicto está vazio em todo documento de homologação que o
+  agente escreveu
 
 **Instrução que não é verificada é sugestão** — a lei do P8 vale para o agente também.
 
@@ -1878,8 +2154,12 @@ Em ordem de aparecimento. O primeiro é o mais precoce e o mais fácil de ignora
    se escolheu.
 5. **Um número mudou e ninguém sabe dizer qual medição o produziu.**
 6. **O registro de alterações parou de crescer, mas o código não.**
+7. **Um teste mudou no mesmo commit do código que ele testa, e ninguém sabe dizer por quê.**
+8. **O documento de homologação foi escrito inteiro no dia da entrega** — todas as entradas
+   com a mesma data, as saídas de teste resumidas em vez de coladas.
 
-Quando aparecer o 1, o 6 está a poucas semanas.
+Quando aparecer o 1, o 6 está a poucas semanas. Quando aparecer o 7, a suíte verde já não
+significa nada.
 
 ### Quando o protocolo atrapalha
 
@@ -1942,48 +2222,60 @@ descrito num protocolo acima — com o sinal pelo qual ele se reconhece.
 | 33 | Teste que exercita o que foi decidido abandonar | Suíte verde para a tecnologia vetada | P4 |
 | 34 | Executar sem aparecer onde a pessoa vê | Pessoa olhando tela parada | P4 |
 | 35 | Apagar o rascunho ao terminar | Rastro do trabalho perdido | P4 |
-| 36 | Cravar mudança de comportamento no código | Default novo sem trava | P5 |
-| 37 | Ligar funcionalidade desligada sem achar a decisão | "Parecia útil" | P5 |
-| 38 | Configuração lida no import | Ajuste só vale depois de reiniciar | P5 |
-| 39 | Criar terceira cópia da verdade | A mesma lista em três lugares | P6 |
-| 40 | Registro de decisão que descreve o que foi feito | Sem as opções recusadas | P6 |
-| 41 | Tomar a decisão que era de quem paga | Custo imposto, dependência nova, default mudado — sem perguntar | P6 |
-| 42 | Confiança declarada pelo avaliado usada como régua | Campo `risco` sem procedência no nome | P6 |
-| 43 | Encadear etapas numa resposta | "Em paralelo, já aproveito e" | P7 |
-| 44 | "ok" tratado como liberação da fila | Três ações depois de um "ok" | P7 |
-| 45 | Proposta com mil linhas de teoria | Ninguém lê — ruído com cara de rigor | P7 |
-| 46 | Texto que o modelo lê em literal no código | Frase duplicada; recarga que não alcança | P7 |
-| 47 | Schema montado no import | Edição de prompt "sem efeito" até reiniciar | P7 |
-| 48 | Teste comparando contra cópia da frase | Segundo lugar onde o texto mora | P7 |
-| 49 | Regra determinística resolvida com modelo | Chamada de modelo para validar formato fixo | P8 |
-| 50 | Ação irreversível executada sem confirmação | Enviado, pago ou apagado pela IA sozinha | P8 |
-| 51 | Baixa confiança preenchida por aproximação | Campo "quase certo" gravado | P8 |
-| 52 | Reforçar instrução já desobedecida | "Vou deixar mais explícito no prompt" | P8 |
-| 53 | Restringir por prosa em vez de estrutura | Regra na descrição da ferramenta | P8 |
-| 54 | Ferramenta que alcança outras por dentro, fora do gate | Porta lateral | P8 |
-| 55 | Texto vindo de ferramenta obedecido como instrução | Ação que ninguém pediu, com origem num arquivo | P8 |
-| 56 | Laço sem teto | Terceira tentativa do mesmo passo | P8 |
-| 57 | Erro devolvido como texto de sucesso | Normal e grave com a mesma cara | P8 |
-| 58 | Painel que mostra sempre o mesmo número | Sinal que não carrega sinal | P8 |
-| 59 | Acusar o modelo comparando só canal 1 com canal 3 | "Ele mentiu" — e o sistema é que informou errado | P9 |
-| 60 | Registrar rio acima da transformação | Log que mostra intenção, não fato | P9 |
-| 61 | Registrar o que foi entregue ao SDK | Retries e cabeçalhos invisíveis | P9 |
-| 62 | Silenciar evento por volume | O elo raro some junto com o massivo | P9 |
-| 63 | Valor ausente gravado como zero | "Custo 0" que é "custo desconhecido" | P9 |
-| 64 | Os dois silêncios com a mesma cara | Resumo vazio depois de seis falhas | P9 |
-| 65 | Correlação bloqueada por valor vazio | `chave not in` em vez de `not get(chave)` | P9 |
-| 66 | Agregado lido como estado | "Só 9% de cobertura" — o conserto é de 3 dias atrás | P9 |
-| 67 | Concluir "não registra" sem procurar quem escreve | O consumidor lia outro lugar | P9 |
-| 68 | Redação depois do armazenamento | A linha sai limpa, o blob guarda a chave | P9 |
-| 69 | Configuração lida no boot, gravada pela tela | Tela diz "salvo", sistema no valor velho | P9 |
-| 70 | Estado do trabalho só na memória da conversa | Sessão nova recomeça do zero | P10 |
-| 71 | Citar localização de memória depois de compressão | Referência que não existe mais | P10 |
-| 72 | Começar setor que não cabe na janela | Trabalho amplo mal lembrado | P10 |
-| 73 | Puxar contexto extra numa sessão de escopo fechado | A janela enche e o propósito se perde | P10 |
-| 74 | Handoff sem armadilhas registradas | A próxima sessão cai no mesmo buraco | P10 |
-| 75 | Auditoria que vira refatoração espontânea | Diff em achado que era para catalogar | Guia |
-| 76 | Etapa pulada toda vez, reforçada por repetição | Atrito no lugar errado tratado como indisciplina | Guia |
-| 77 | Duas opiniões cegas concordando | Certeza sem fato novo | Anexo |
+| 36 | Editar o teste até passar | Valor esperado trocado pela saída atual; asserção removida; `skip`/`xfail`; tolerância alargada; *snapshot* regenerado | P4 |
+| 37 | Valor esperado copiado da saída do código | Teste novo que nasce casando com o defeito | P4 |
+| 38 | Teste e código alterados na mesma entrega, sem motivo escrito | Suíte verde como única justificativa | P4 |
+| 39 | "Suspeitar do instrumento" usado como licença para ajustá-lo | Teste "corrigido" sem prova de que media outra coisa | P4 |
+| 40 | "Faz o teste passar" obedecido como ordem de editar o teste | Causa nunca localizada; diff só em arquivo de teste | P4 |
+| 41 | Cravar mudança de comportamento no código | Default novo sem trava | P5 |
+| 42 | Ligar funcionalidade desligada sem achar a decisão | "Parecia útil" | P5 |
+| 43 | Configuração lida no import | Ajuste só vale depois de reiniciar | P5 |
+| 44 | Criar terceira cópia da verdade | A mesma lista em três lugares | P6 |
+| 45 | Registro de decisão que descreve o que foi feito | Sem as opções recusadas | P6 |
+| 46 | Tomar a decisão que era de quem paga | Custo imposto, dependência nova, default mudado — sem perguntar | P6 |
+| 47 | Confiança declarada pelo avaliado usada como régua | Campo `risco` sem procedência no nome | P6 |
+| 48 | Encadear etapas numa resposta | "Em paralelo, já aproveito e" | P7 |
+| 49 | "ok" tratado como liberação da fila | Três ações depois de um "ok" | P7 |
+| 50 | Proposta com mil linhas de teoria | Ninguém lê — ruído com cara de rigor | P7 |
+| 51 | Texto que o modelo lê em literal no código | Frase duplicada; recarga que não alcança | P7 |
+| 52 | Schema montado no import | Edição de prompt "sem efeito" até reiniciar | P7 |
+| 53 | Teste comparando contra cópia da frase | Segundo lugar onde o texto mora | P7 |
+| 54 | Regra determinística resolvida com modelo | Chamada de modelo para validar formato fixo | P8 |
+| 55 | Ação irreversível executada sem confirmação | Enviado, pago ou apagado pela IA sozinha | P8 |
+| 56 | Baixa confiança preenchida por aproximação | Campo "quase certo" gravado | P8 |
+| 57 | Reforçar instrução já desobedecida | "Vou deixar mais explícito no prompt" | P8 |
+| 58 | Restringir por prosa em vez de estrutura | Regra na descrição da ferramenta | P8 |
+| 59 | Ferramenta que alcança outras por dentro, fora do gate | Porta lateral | P8 |
+| 60 | Texto vindo de ferramenta obedecido como instrução | Ação que ninguém pediu, com origem num arquivo | P8 |
+| 61 | Laço sem teto | Terceira tentativa do mesmo passo | P8 |
+| 62 | Erro devolvido como texto de sucesso | Normal e grave com a mesma cara | P8 |
+| 63 | Painel que mostra sempre o mesmo número | Sinal que não carrega sinal | P8 |
+| 64 | Acusar o modelo comparando só canal 1 com canal 3 | "Ele mentiu" — e o sistema é que informou errado | P9 |
+| 65 | Registrar rio acima da transformação | Log que mostra intenção, não fato | P9 |
+| 66 | Registrar o que foi entregue ao SDK | Retries e cabeçalhos invisíveis | P9 |
+| 67 | Silenciar evento por volume | O elo raro some junto com o massivo | P9 |
+| 68 | Valor ausente gravado como zero | "Custo 0" que é "custo desconhecido" | P9 |
+| 69 | Os dois silêncios com a mesma cara | Resumo vazio depois de seis falhas | P9 |
+| 70 | Correlação bloqueada por valor vazio | `chave not in` em vez de `not get(chave)` | P9 |
+| 71 | Agregado lido como estado | "Só 9% de cobertura" — o conserto é de 3 dias atrás | P9 |
+| 72 | Concluir "não registra" sem procurar quem escreve | O consumidor lia outro lugar | P9 |
+| 73 | Redação depois do armazenamento | A linha sai limpa, o blob guarda a chave | P9 |
+| 74 | Configuração lida no boot, gravada pela tela | Tela diz "salvo", sistema no valor velho | P9 |
+| 75 | Estado do trabalho só na memória da conversa | Sessão nova recomeça do zero | P10 |
+| 76 | Citar localização de memória depois de compressão | Referência que não existe mais | P10 |
+| 77 | Começar setor que não cabe na janela | Trabalho amplo mal lembrado | P10 |
+| 78 | Puxar contexto extra numa sessão de escopo fechado | A janela enche e o propósito se perde | P10 |
+| 79 | Handoff sem armadilhas registradas | A próxima sessão cai no mesmo buraco | P10 |
+| 80 | Entrega sem documento de homologação | "Está pronto", com a palavra do agente como prova | P11 |
+| 81 | Documento de homologação escrito no fim, de memória | Todas as entradas com a mesma data; saídas de teste resumidas em vez de coladas | P11 |
+| 82 | Veredicto preenchido pelo agente | "Testado e aprovado" sem a assinatura de quem homologa | P11 |
+| 83 | Execução delegada sem registro | Container no ar, `.env` criado — e nenhum comando escrito | P11 |
+| 84 | "Faz tudo o que precisar" aceito de quem não sabe o que "tudo" contém | Cinco operações depois de um "sim" | P11 |
+| 85 | Explicar como a pessoa faria, em vez de oferecer fazer | Quem não sabe o que é terminal recebendo comando para colar | P11 |
+| 86 | Operação irreversível delegada com "sim" de quem não avalia a consequência | Dado real apagado ou publicação feita, aprovados por quem não sabia o que aprovava | P11 |
+| 87 | Auditoria que vira refatoração espontânea | Diff em achado que era para catalogar | Guia |
+| 88 | Etapa pulada toda vez, reforçada por repetição | Atrito no lugar errado tratado como indisciplina | Guia |
+| 89 | Duas opiniões cegas concordando | Certeza sem fato novo | Anexo |
 
 ---
 
