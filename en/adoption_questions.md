@@ -157,7 +157,7 @@ measure the real environment.
 >
 > -
 
-**C2. How does one find out whether the running process has the code that is on disk?**
+**C2. How does one find out whether the live process has the code that is on disk?**
 Concrete command: process start time, version endpoint, build hash.
 
 > **Answer:**
