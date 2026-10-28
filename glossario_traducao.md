@@ -21,6 +21,18 @@ tradução, a corrigir aqui e nos arquivos de `en/`.*
   entrada ganha a tradução nova, a antiga vai para as recusadas com o motivo, e os cinco
   arquivos são atualizados juntos.
 
+**As decisões que mais valem a confirmação da autora**, por carregarem mais intenção:
+
+1. **quem homologa → the acceptor** (e *acceptance document*, *Acceptance Protocol*). A
+   alternativa é *approver*; a troca é global.
+2. **"guarda-corpo, prova pendente" → "guardrail, proof pending"**.
+3. **remendo → band-aid** (em vez de *patch*, que em inglês é neutro).
+4. **retomada → resumption**; **bloco de passagem → handover block**.
+5. **"você aprova que eu faça isso por você?" → "do you approve of me doing this for you?"**
+6. Os rótulos do formato de resposta traduzidos: `CHANGE` / `WHY` / `FINDINGS` /
+   `PROPOSAL` / `NEED TO SEE`.
+7. **registro** dividido em *record* (o princípio, os artefatos) e *log/logging* (P9).
+
 Os arquivos em inglês e seus originais:
 
 | Original | Tradução |
@@ -251,7 +263,41 @@ Os arquivos em inglês e seus originais:
 | **Fecho** | **Closing** | a seção final. | Direto. |
 | **Guia de uso no dia a dia** | **Day-to-day usage guide** | título de seção. | Direto. |
 
-### 2.8 — Palavras que ficam como estão
+### 2.8 — Termos fixados durante a tradução
+
+Decididos pelos tradutores fora da lista original e harmonizados entre os cinco arquivos.
+
+| Termo | Tradução | Onde | Observação |
+|---|---|---|---|
+| **A diferença (exibida)** *(de um teste alterado)* | **the diff (shown)** | P4, P11, K3, K6, Art. 20/34/62 | *Diff* é o que quem homologa, lendo código, espera; "difference shown" lia ambíguo. |
+| **Reversão** *(substantivo: "comando, saída e reversão")* | **revert** | P11, K3, Art. 31/66 | O verbo é *revert*, o comando é *revert command*, e o título do P2 é *Reversal Protocol*. |
+| **O trecho alterado** *(no rótulo `MUDANÇA`)* | **the changed snippet** | P7, Art. 44 | *Altered* fica reservado a teste. No Art. 24 da enxuta o original diz só "o trecho" → *the snippet*. |
+| **Gravar** | **save** *(P8)* / **record, log** *(P9)* | "o que grava", "validado antes de gravar" → *what gets saved*, *validated before saving*; "gravado como ausente" → *recorded as absent*; "muda o que se grava" → *changes what gets logged* | Dois sentidos: persistir no sistema (P8) e escrever no log (P9). |
+| **Recusa / recusar** | **reject** *(entrega, veredicto, opção de ADR)* / **refuse, refusal** *(proposta; mensagem de recusa do modelo)* | K6 "critério de recusa" → *rejection criterion*; "registra a recusa com o motivo" → *records the refusal with the reason*; "mensagem de recusa" → *refusal message* | A entrega e a opção se rejeitam; a proposta se recusa. |
+| **Par revisor** | **reviewing pair** | A1 | |
+| **Lista-base** | **base list** | A2, K3, K6, I4 | |
+| **O processo no ar** | **the live process** | P3, C2, Art. 16/24 | |
+| **Fato afirmado** | **stated fact** | P9 §3 | Recusado *asserted* (reservado à asserção de teste). |
+| **Sem trava** *(catálogo 41)* | **with no safety catch** | catálogo | *Pin* não cabia aqui. |
+| **Trocar segredo de produção** | **changing a production secret** | K5, P11 | Recusado *rotating* (jargão que o original dispensa). |
+| **O desenho mais simples de cobrar** | **the simplest design to hold people to** | K2 | |
+| **Fica fora da conta** | **stays off the bill** | Art. 78/97 | Mantém a imagem de custo. |
+| **A sua cobrança** *(Art. 84)* | **your accountability** | Art. 84 | O mais próximo; o português "cobrança" é mais duro. |
+| **O feito (depois)** | **what was done (after)** | Art. 53/102, P2 | "A declaração antes e o feito depois" → *the declaration before and what was done after*. |
+| **Passa ao largo** | **steers clear of** / **bypasses** | P4, P9, P10 | Idioma, não termo; os dois servem. |
+| **Registro de auditoria** | **audit record** | P3 | |
+| **Registro/plugins vazios** *(catálogo 20)* | **Registry/plugins empty** | catálogo | Aqui "registro" é o registry de plugins. |
+| **"Já aproveitei e"** | **"While I was at it"** | guia, sinais | Passado do *while I'm at it*. |
+| **"Fica de fora:"** | **"Left out:"** | ONDE CABE | |
+| **Quem lê** *(coluna)* | **Who reads it** | README, artefatos | |
+| **Aplica-se?** | **Does it apply?** | H | |
+| **Quando erra** | **when it goes wrong** | H1, P8 | |
+| **Status de ADR** | proposed / accepted / accepted and applied / awaiting decision / superseded by… | P6 | |
+| **Status do mapa** | pending / under analysis / done | P10 | |
+| **Em reais** *(anexo)* | **in reais** | anexo | É exemplo de conhecimento de domínio; a moeda fica. |
+| **Some extensão; a verdade fica** | **Length goes missing; the truth stays** | anexo | |
+
+### 2.9 — Palavras que ficam como estão
 
 **hash, gate, hook, CI, SDK, stub, mock, snapshot, handoff, schema, prompt, token, commit,
 branch, worktree, lock, migration, container, backend, worker, frontend, ADR, append-only,
