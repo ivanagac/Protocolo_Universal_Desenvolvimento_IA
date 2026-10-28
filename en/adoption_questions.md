@@ -486,7 +486,7 @@ domain requires.*
 
 **I5. Who decides how much to log, and where does that decision live?** If the answer is
 "it is in the code", move it to configuration. If it is in configuration that only the team
-remembers exists, **take it to the owner's interface**.
+remembers exists, **take it to the product owner's interface**.
 
 > **Answer:**
 >

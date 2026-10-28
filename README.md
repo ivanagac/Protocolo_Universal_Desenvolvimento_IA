@@ -2,6 +2,9 @@
 
 *por Ivana Cruz · licenciado sob [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/)*
 
+*Também em inglês: [`en/README.md`](en/README.md). Os termos da tradução, com o sentido de
+cada um e as alternativas recusadas, estão em [`glossario_traducao.md`](glossario_traducao.md).*
+
 Método de trabalho para desenvolver um sistema com IA — tanto quando a IA **escreve** o
 sistema quanto quando a IA **faz parte** do sistema.
 

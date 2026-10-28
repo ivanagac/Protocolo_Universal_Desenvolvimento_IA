@@ -276,7 +276,10 @@ Decididos pelos tradutores fora da lista original e harmonizados entre os cinco 
 | **Recusa / recusar** | **reject** *(entrega, veredicto, opção de ADR)* / **refuse, refusal** *(proposta; mensagem de recusa do modelo)* | K6 "critério de recusa" → *rejection criterion*; "registra a recusa com o motivo" → *records the refusal with the reason*; "mensagem de recusa" → *refusal message* | A entrega e a opção se rejeitam; a proposta se recusa. |
 | **Par revisor** | **reviewing pair** | A1 | |
 | **Lista-base** | **base list** | A2, K3, K6, I4 | |
-| **O processo no ar** | **the live process** | P3, C2, Art. 16/24 | |
+| **O processo no ar** | **the live process** | P3, C2, Art. 16/24 | Recusado *running process* (ambíguo com "em execução" no teste). |
+| **Até o método estar rodando** | **until the method is up and running** | A3 | |
+| **A interface de quem é dono** *(I5)* | **the product owner's interface** | I5 | Segue "quem é dono do produto" → *the product owner*. |
+| **Pode mexer no módulo X** | **You can touch module X** | P1, guia | *Touch* é o verbo fixado para "tocar/mexer". |
 | **Fato afirmado** | **stated fact** | P9 §3 | Recusado *asserted* (reservado à asserção de teste). |
 | **Sem trava** *(catálogo 41)* | **with no safety catch** | catálogo | *Pin* não cabia aqui. |
 | **Trocar segredo de produção** | **changing a production secret** | K5, P11 | Recusado *rotating* (jargão que o original dispensa). |

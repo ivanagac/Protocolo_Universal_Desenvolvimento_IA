@@ -518,7 +518,7 @@ expected value comes from.
 
 **Check in the right place and at the right moment:**
 
-- **Running process ≠ code on disk.** Compare the file's modification time with the
+- **Live process ≠ code on disk.** Compare the file's modification time with the
   process start. Older service = the test runs against old code; restart before
   concluding.
 - **Verification counts through the path production uses.** Recheck on a new connection,
@@ -562,7 +562,7 @@ When the measurement accuses the code:
 6. **Does the load I used exercise the path I want to measure?**
 7. **Is the trace the code would leave, if it had done what I expect, in the log?**
 8. **Am I verifying through the path production uses?**
-9. **Does the running process have the code that is on disk?**
+9. **Does the live process have the code that is on disk?**
 
 Before writing in the record:
 
@@ -860,7 +860,7 @@ business veto.** "Vetoed because it would require running a service on each user
 is **the real constraint of the product** — and, written, it holds the discussion six
 months from now.
 
-**4. "Reinforce the instruction" has its own form of refusal.** *"Discarded: the
+**4. "Reinforce the instruction" has its own form of rejection.** *"Discarded: the
 instruction already existed, was explicit and by name, and was disobeyed. There is no
 reinforcement to be done."* → **An instruction is a rule when verified; until then, it is a
 suggestion.**
@@ -1649,7 +1649,7 @@ record; approval from memory alone is a report.
 a section left out receives "none", written):
 
 1. **The request** — what was asked for, in the words of whoever asked, with the date.
-2. **What was delivered** — each file created, altered or removed, pointing to its entry
+2. **What was delivered** — each file created, changed or removed, pointing to its entry
    in the change record *(P2)*.
 3. **How to see it working** — step by step, literal, for the acceptor to reproduce on
    their own: what to bring up, what to run, what to expect to see, and what it means to
@@ -1789,7 +1789,7 @@ context of whoever wrote it.
 |---|---|---|---|
 | **Project rules document** | Adoption | the Constitution at the top, the questionnaire answers below | the agent, every session |
 | **Mode document** | Guide | the calibration of the active mode — construction, audit, layer refactoring | the agent, when the person says which mode holds |
-| **Change record** | P2 | one entry per change: authorization, declaration, done, divergence, test, revert command | a future session without context, to revert on its own |
+| **Change record** | P2 | one entry per change: authorization, declaration, what was done, divergence, test, revert command | a future session without context, to revert on its own |
 | **Physical copy** | P2 | the original before each change, with the hash | the revert command |
 | **Configuration switch with its cost** | P5 | what changes, the measured cost, how to revert — beside the conservative value | whoever pays, when deciding to switch it on |
 | **Decision record (ADR)** | P6 | one decision per record: measured problem, options with the rejections, who decided, boundary | whoever asks "why did we do it this way?" |
@@ -1847,7 +1847,7 @@ customer, charging, publishing, changing a search index, invalidating a global c
 provisioning infrastructure.)
 
 **A3. What is the default scope of an authorization?** One file? One module? A whole task?
-*Recommended: one file at a time, until the method is running.* And what does an
+*Recommended: one file at a time, until the method is up and running.* And what does an
 authorization given in the chat, without a target, mean in this project? *(Recommended: it
 is the moment for the agent to ask for the target.)*
 
@@ -1894,7 +1894,7 @@ setup, plugin registration, environment variables, migrations, container initial
 **That list is the mandatory header of every helper script** — with it you measure the real
 environment.
 
-**C2. How do you find out whether the running process has the code that is on disk?** A
+**C2. How do you find out whether the live process has the code that is on disk?** A
 concrete command: process start time, version endpoint, build hash.
 
 **C3. Where are the records that answer "what really happened"?** Application logs,
@@ -2049,7 +2049,7 @@ domain requires.*
 
 **I5. Who decides how much to log, and where does that decision live?** If the answer is
 "it's in the code", move it to configuration. If it is in configuration that only the team
-remembers exists, **take it to the owner's interface**.
+remembers exists, **take it to the product owner's interface**.
 
 **I6. Where are the logs kept, and for how long?** File, database, both? **Dual write (file
 first, database after) is the safe design.** And: are your log and third-party libraries'
@@ -2174,7 +2174,7 @@ widening is done in writing, in the project document.**
 
 In practice:
 
-- "You can work on module X" said in the chat is authorization with a target: it holds for
+- "You can touch module X" said in the chat is authorization with a target: it holds for
   module X, whole, and for it alone. "Do whatever's needed" has yet to name the target, and
   the agent asks.
 - Greater autonomy — editing a whole layer without asking file by file — is granted in the
@@ -2208,8 +2208,8 @@ confirm that the exception that will now propagate has a sensible destination**.
 destination is still missing, create it in the correct layer — what gets created is the
 destination; the removed handler stays removed.
 
-**A fix is what changes behavior:** logging and silencing the type checker stay in the
-catalog as clues.
+**A fix is what changes behavior:** a log and a type-checker silence stay in the catalog as
+clues.
 
 ### Adapting to a project that already exists
 
@@ -2242,7 +2242,7 @@ version — the end-of-response check.
 **3. Mechanical verification** — the only one that holds regardless of the agent's
 discipline:
 - a hook that only accepts a commit with a matching entry in the record
-- a test that checks that every altered file has a physical copy
+- a test that checks that every changed file has a physical copy
 - a test that pins the conservative default of every flag
 - CI that runs the suite against the previous commit and compares
 - a gate that checks every tool call before executing
