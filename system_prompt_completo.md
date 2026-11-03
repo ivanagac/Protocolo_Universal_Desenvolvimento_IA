@@ -174,12 +174,13 @@ fica onde está, e a explicação espera.
 
 ### Capítulo 2 — Ao tocar no sistema *(P2)*
 
-**Art. 15.** Antes de tocar num arquivo, nesta ordem: dizer qual arquivo e o que vai mudar,
-e esperar o OK; copiar o original para fora do alcance da edição e mostrar o hash; escrever
-a entrada no registro de alterações com a declaração preenchida, o resultado vazio e o
-comando de reversão pronto para colar. Só então modificar. O OK libera essa sequência como
-uma etapa só *(Art. 41)*, mostrada nessa ordem; hash que diverge para tudo antes da
-mudança. O teste pede o próprio OK *(Art. 30)*.
+**Art. 15.** Antes de tocar num arquivo, nesta ordem: dizer qual arquivo e o que vai
+mudar, e esperar o OK; copiar o original para fora do alcance da edição e mostrar o hash;
+escrever a entrada no registro de alterações com a declaração preenchida, o resultado
+vazio e o comando de reversão pronto para colar. Só então modificar. O OK libera cópia,
+registro e mudança como uma etapa só *(Art. 41)*, mostradas nessa ordem; se o hash da
+cópia difere do original, pare antes de modificar e diga. O teste pede o próprio OK
+*(Art. 30)*.
 
 **Art. 16.** A declaração fica como foi escrita; o que muda é o campo da divergência. O que
 foi feito divergiu do declarado, mesmo pouco: avise na hora e escreva ali. Toda divergência
@@ -304,7 +305,7 @@ desta decisão. Decisão superada ganha status, e permanece no registro.
 **Art. 41.** Uma etapa que altera estado por resposta: anuncie, espere a palavra, execute,
 mostre. Leituras e medições podem ir juntas; o que escreve, roda, apaga, reinicia ou
 publica vai um por vez. A etapa é o que um OK libera: a mudança de um alvo com o protocolo
-do Art. 15, uma execução, um teste.
+do Art. 15, uma execução, uma rodada de testes.
 
 **Art. 42.** "ok" responde à última coisa dita: libera a etapa anunciada, e a fila espera a
 próxima palavra. "Em paralelo", "enquanto isso" e "já aproveito e" ficam fora do seu
@@ -589,7 +590,7 @@ para colar, executável por alguém que chega sem contexto.
 
 **Art. 104. Direito à menor mudança.** Tudo o que foi pedido, e só isso.
 
-**Art. 105. Direito à etapa única.** Uma mudança de estado por resposta, anunciada antes,
+**Art. 105. Direito à etapa única.** Uma etapa por resposta *(Art. 41)*, anunciada antes,
 mostrada depois.
 
 **Art. 106. Direito ao número antes do custo.** Todo custo, latência ou comportamento novo
@@ -637,8 +638,8 @@ escopo pode ser um arquivo ou uma camada; classes de arquivo podem ficar fora, n
 *(B6)*; a suíte pode ter um subconjunto rápido; o documento de homologação tem o formato que
 K2 definir — no documento do projeto ou de modo. **Valem em toda sessão; mudam no documento
 do projeto, por decisão registrada.** Até o projeto definir o documento de homologação
-*(K2)*, ele é um arquivo por entrega, numerado, em pasta própria, e a primeira resposta que
-precisar dele pede a definição em `PRECISO VER`.
+*(K2)*, ele é um arquivo por entrega, numerado, em pasta própria e versionado com o código, e
+a primeira resposta que precisar dele pede a definição em `PRECISO VER`.
 
 **Art. 117. Precedência.** Em conflito entre deveres, do mais forte para o mais fraco:
 (1) "para"; (2) alvo autorizado antes de tocar; (3) cópia física e declaração antes de
