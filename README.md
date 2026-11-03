@@ -18,7 +18,7 @@ onde alguém possa comparar.
 | Arquivo | O que é | Quem lê |
 |---|---|---|
 | [`protocolo_universal.md`](protocolo_universal.md) | A referência completa: o núcleo em quinze linhas, os seis princípios, os onze protocolos (P1–P11), a tabela de artefatos, o guia de uso, o catálogo de 89 sinais e saídas e o anexo com o exercício de emulação. | Quem adota o método e quem escreve as regras do projeto. |
-| [`system_prompt_recomendado.md`](system_prompt_recomendado.md) | A Constituição enxuta — 65 artigos, cerca de 4,9 mil tokens. Deveres e direitos do agente e de quem autoriza. **É a que vai no topo do documento de regras do projeto.** | O agente, a cada sessão. |
+| [`system_prompt_recomendado.md`](system_prompt_recomendado.md) | A Constituição enxuta — 65 artigos, cerca de 5,1 mil tokens. Deveres e direitos do agente e de quem autoriza. **É a que vai no topo do documento de regras do projeto.** | O agente, a cada sessão. |
 | [`system_prompt_completo.md`](system_prompt_completo.md) | A Constituição completa — 122 artigos, um por regra, com definições, hierarquia, precedência em conflito e o exame de fim de resposta. | O agente, quando o projeto prefere a versão autossuficiente; a pessoa, para entender o que cada lado deve e pode exigir. |
 | [`adoption_questions.md`](adoption_questions.md) | O questionário de adoção, preenchível — 64 perguntas em onze seções (A–K). As respostas viram o documento de regras do seu projeto. | Quem é dono do projeto, uma vez, antes de começar. |
 

@@ -308,10 +308,10 @@ campo da **divergência** recebe a diferença — e a declaração continua inta
 testemunha.
 
 **O procedimento — seis etapas, um alvo por vez.** Cada etapa tem um motivo escrito,
-porque **etapa com o motivo ao lado é a que sobrevive à pressa.** O OK da etapa 1 libera as
-etapas 2 a 4 como uma etapa só *(P7)*: cópia, registro e mudança vão na mesma resposta,
-mostrados nessa ordem, e o hash que diverge para tudo antes da modificação. O teste da
-etapa 6 pede o próprio OK.
+porque **etapa com o motivo ao lado é a que sobrevive à pressa.** O OK da etapa 1 libera
+as etapas 2 a 4 como uma etapa só *(P7)*: cópia, registro e mudança vão na mesma resposta,
+mostrados nessa ordem; se o hash da cópia difere do original, pare antes de modificar e
+diga. O teste da etapa 6 pede o próprio OK.
 
 **1. Dizer qual arquivo e o que vai mudar. Esperar o OK.**
 > É o único ponto em que o alvo pode ser corrigido enquanto ainda é barato. E atende a um
@@ -910,7 +910,8 @@ viva**; três leituras, um commit e uma execução na mesma resposta pedem que e
 - **"Em paralelo", "enquanto isso", "já aproveito e" são sinais de atropelo:** ao vê-los na
   sua resposta, corte a resposta em etapas.
 - Evento que altera estado (rodar, apagar, reiniciar, publicar): **anuncie, espere a
-  palavra, execute, mostre.** Cada execução tem a palavra dela logo antes.
+  palavra, execute, mostre.** Cada execução tem a palavra dela logo antes; cópia e registro
+  do P2 vão com o OK da mudança.
 - **"ok" responde à última coisa dita** — libera aquela etapa.
 - **Pare quando mandarem parar** — na hora, no ponto em que estava. Parar na hora é
   obedecer bem.
@@ -919,7 +920,7 @@ viva**; três leituras, um commit e uma execução na mesma resposta pedem que e
 cinco arquivos para responder uma pergunta é investigação. **O que altera estado vai um
 por vez.** A fronteira é a mesma do P1: pede OK o que escreve, roda, apaga, reinicia ou
 publica, e cada OK libera uma etapa — a mudança de um alvo com o protocolo do P2 (cópia,
-registro e mudança juntos), uma execução, um teste.
+registro e mudança juntos), uma execução, uma rodada de testes.
 
 **O complemento: no diagnóstico, dê tudo de uma vez.** Investigação entregue inteira
 poupa quem lê de costurar fatias. **O ritmo lento é para execução; o rápido é para
@@ -1594,9 +1595,10 @@ Quando são a mesma pessoa, o documento continua existindo: é o que uma sessão
 para saber o que foi aprovado e com base em quê — aprovação com registro é registro;
 aprovação só de memória é relatório.
 
-**Onde ele mora.** O lugar e o nome são do projeto *(K2)*. Até a resposta existir, o padrão
-é um arquivo por entrega, numerado, em pasta própria, e a primeira resposta que precisar
-dele pede a definição em `PRECISO VER`. Assim o documento existe desde a primeira entrega.
+**Onde ele mora.** O lugar e o nome são do projeto *(K2)*. Até a resposta existir, o
+padrão é um arquivo por entrega, numerado, em pasta própria e versionado com o código, e a
+primeira resposta que precisar dele pede a definição em `PRECISO VER`. Assim o documento
+existe desde a primeira entrega.
 
 **O que o documento de homologação carrega** (o formato é seu; as seções são estas, e
 seção que fica de fora recebe "nenhum", escrito):
