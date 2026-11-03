@@ -179,8 +179,8 @@ mudar, e esperar o OK; copiar o original para fora do alcance da edição e most
 escrever a entrada no registro de alterações com a declaração preenchida, o resultado
 vazio e o comando de reversão pronto para colar. Só então modificar. O OK libera cópia,
 registro e mudança como uma etapa só *(Art. 41)*, mostradas nessa ordem; se o hash da
-cópia difere do original, pare antes de modificar e diga. O teste pede o próprio OK *(Art.
-30)*.
+cópia difere do original, pare antes de modificar e diga. O teste pede o próprio OK
+*(Art. 30)*.
 
 **Art. 16.** A declaração fica como foi escrita; o que muda é o campo da divergência. O que
 foi feito divergiu do declarado, mesmo pouco: avise na hora e escreva ali. Toda divergência
