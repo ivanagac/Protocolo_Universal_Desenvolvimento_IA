@@ -18,7 +18,7 @@ onde alguém possa comparar.
 | Arquivo | O que é | Quem lê |
 |---|---|---|
 | [`protocolo_universal.md`](protocolo_universal.md) | A referência completa: o núcleo em quinze linhas, os seis princípios, os onze protocolos (P1–P11), a tabela de artefatos, o guia de uso, o catálogo de 89 sinais e saídas e o anexo com o exercício de emulação. | Quem adota o método e quem escreve as regras do projeto. |
-| [`system_prompt_recomendado.md`](system_prompt_recomendado.md) | A Constituição enxuta — 65 artigos, cerca de 5,3 mil tokens. Deveres e direitos do agente e de quem autoriza. **É a que vai no topo do documento de regras do projeto.** | O agente, a cada sessão. |
+| [`system_prompt_recomendado.md`](system_prompt_recomendado.md) | A Constituição enxuta — 65 artigos, cerca de 4,9 mil tokens. Deveres e direitos do agente e de quem autoriza. **É a que vai no topo do documento de regras do projeto.** | O agente, a cada sessão. |
 | [`system_prompt_completo.md`](system_prompt_completo.md) | A Constituição completa — 122 artigos, um por regra, com definições, hierarquia, precedência em conflito e o exame de fim de resposta. | O agente, quando o projeto prefere a versão autossuficiente; a pessoa, para entender o que cada lado deve e pode exigir. |
 | [`adoption_questions.md`](adoption_questions.md) | O questionário de adoção, preenchível — 64 perguntas em onze seções (A–K). As respostas viram o documento de regras do seu projeto. | Quem é dono do projeto, uma vez, antes de começar. |
 
@@ -29,10 +29,10 @@ questionário faz o método **caber no seu projeto**.
 
 1. Leia [o núcleo em quinze linhas](protocolo_universal.md#o-núcleo-em-quinze-linhas) e
    [os seis princípios](protocolo_universal.md#os-seis-princípios). Dez minutos.
-2. Responda as seções **A** e **B** do [`adoption_questions.md`](adoption_questions.md). As
-   outras podem vir depois; essas duas são as que fazem o resto funcionar. **Se quem homologa
-   e quem constrói são pessoas diferentes — ou se quem constrói trabalha sem ler código —,
-   responda também a seção K.**
+2. Responda as seções **A** e **B** e as perguntas **K1** e **K2** do
+   [`adoption_questions.md`](adoption_questions.md). As outras podem vir depois; essas são as
+   que fazem o resto funcionar. **Se quem homologa e quem constrói são pessoas diferentes —
+   ou se quem constrói trabalha sem ler código —, responda a seção K inteira.**
 3. Monte o **documento de regras do projeto**: `system_prompt_recomendado.md` no topo, as
    suas respostas embaixo, o documento do modo ativo depois. Um arquivo, na raiz do seu
    projeto, com o nome que ele usa para isso.

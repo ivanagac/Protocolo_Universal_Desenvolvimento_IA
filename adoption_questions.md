@@ -7,9 +7,10 @@ do seu projeto — aquele que o agente lê a cada sessão.*
 
 ## Como usar
 
-- **Responda antes de começar.** Leva de 30 a 60 minutos. **Comece por A e B**: são as que
-  fazem as outras funcionarem. **Se quem homologa e quem constrói são pessoas diferentes —
-  ou se quem constrói trabalha sem ler código —, K entra no mínimo.**
+- **Responda antes de começar.** Leva de 30 a 60 minutos. **Comece por A, B, K1 e K2**: são
+  as que fazem as outras funcionarem. **Se quem homologa e quem constrói são pessoas
+  diferentes — ou se quem constrói trabalha sem ler código —, a seção K entra inteira no
+  mínimo.**
 - **As respostas viram o documento de regras do projeto**, nesta ordem: a Constituição no
   topo *(`system_prompt_recomendado.md` ou `system_prompt_completo.md`)*, as respostas
   deste questionário embaixo, o documento do modo ativo depois.
@@ -47,9 +48,9 @@ agir.
 adaptar: alteração de schema ou migration; exclusão ou reescrita integral de arquivo lido
 só em parte; inclusão de dependência nova; mudança em contrato consumido por terceiros;
 qualquer operação sobre ambiente ou dado real; **alteração ou remoção de teste existente**
-*(P4)*. *O que mais, no seu domínio, é caro ou irreversível?* (Envio de mensagem a cliente,
-cobrança, publicação, alteração de índice de busca, invalidação de cache global,
-provisionamento de infra.)
+*(P4)*. Até a sua lista existir, a Constituição aplica esta lista-base. *O que mais, no seu
+domínio, é caro ou irreversível?* (Envio de mensagem a cliente, cobrança, publicação,
+alteração de índice de busca, invalidação de cache global, provisionamento de infra.)
 
 > **Resposta** *(uma operação por linha)*:
 >
@@ -583,7 +584,8 @@ em que linguagem.
 > | | | |
 
 **K2. Onde fica o documento de homologação, e como se chama?** Um arquivo por entrega,
-numerado, em pasta própria e versionado com o código é o desenho mais simples de cobrar.
+numerado, em pasta própria e versionado com o código é o desenho mais simples de cobrar —
+e é o padrão que a Constituição aplica até esta resposta existir.
 
 > **Resposta:**
 >
@@ -649,13 +651,14 @@ escrito, a recusa é previsível e a aprovação tem peso.**
 1. **Monte o documento de regras do projeto:** a Constituição no topo, estas respostas
    embaixo, o documento do modo ativo depois. Um arquivo, na raiz, com o nome que o seu
    projeto usa para isso.
-2. **Confira o mínimo que já vale:** A1, A2, A3, B1, B2, B3 e B4 respondidos. Com esses
-   sete, a regra "toda edição começa com o alvo nomeado" já muda o comportamento do agente
-   na primeira sessão.
+2. **Confira o mínimo que já vale:** A1, A2, A3, B1, B2, B3, B4, K1 e K2 respondidos. Com
+   esses nove, a regra "toda edição começa com o alvo nomeado" já muda o comportamento do
+   agente na primeira sessão, e o documento de homologação tem lugar desde a primeira
+   entrega.
 3. **Diga ao agente qual modo está ativo.** Enquanto o modo está por declarar, vale
    construção.
-4. **Se quem homologa e quem constrói são pessoas diferentes, K1 e K2 entram no mínimo.**
-   Com eles, a entrega chega a quem aprova com evidência — e a suíte verde ganha
+4. **Se quem homologa e quem constrói são pessoas diferentes, a seção K entra inteira no
+   mínimo.** Com ela, a entrega chega a quem aprova com evidência — e a suíte verde ganha
    companhia: a saída de cada teste e a lista dos testes alterados.
 5. **Revise quando uma resposta mudar de fato.** Toda revisão atualiza o cabeçalho, e uma
    resposta que muda porque uma decisão foi tomada aponta para o ADR que a tomou.
